@@ -31,9 +31,8 @@ typedef struct listnode
 typedef struct list
 {
     Listnode *head;
-    Listnode *current;
+    Listnode *tail;
     int size;
-    int current_pos;
 }List;
 
 
@@ -42,7 +41,7 @@ void create_student(Student *ps)
     char str[50];
     printf ("enter the name of student \n");
     fflush(stdin);
-    fgets(str,50,stdin);;
+    fgets(str,50,stdin);
     strcpy(ps->Name,str);
     printf ("enter the ID of student \n");
     scanf("%d",&(ps->ID) );
@@ -60,8 +59,7 @@ void create_list(List*pl)
 {
     pl->size=0;
     pl->head=NULL;
-    pl->current_pos=0;
-    pl->current=NULL;
+    pl->tail=NULL;
 }
 
 void insert_list(int pos , const Student *ps , List *pl )
@@ -75,25 +73,33 @@ void insert_list(int pos , const Student *ps , List *pl )
     pe->entry.dateof_birth.year=ps->dateof_birth.year;
     if (pos==0)
         {
-        pe->next=pl->head;
-        pl->head=pe;
-        pl->current=pl->head;
-        pl->current_pos=0;
+          if(pl->head==NULL)
+          {
+            pe->next=pl->head;
+            pl->head=pe;
+            pl->tail=pe;
+          }
+          else
+          {
+            pe->next=pl->head;
+            pl->head=pe;
+          }
+        }
+    else if(pos==size_of_students(&pl))
+        {
+        pl->tail->next=pe;
+        pe->next=NULL;
+        pl->tail=pe;
         }
     else
         {
-
-        if (pos<= pl->current_pos)
+            Listnode* p_new=pl->head;
+            for(int i=0;i<pos-1;i++)
             {
-            pl->current_pos=0;
-            pl->current=pl->head;
+                p_new=p_new->next;
             }
-        for (;pl->current_pos!=pos-1 ; pl->current_pos++)
-            {
-            pl->current=pl->current->next;
-            }
-        pe->next=pl->current->next;
-        pl->current->next=pe;
+            pe->next=p_new->next;
+            p_new->next=pe;
         }
     pl->size++;
 }
@@ -153,6 +159,7 @@ void Linked_List(int n)
         }
     printf("Insertion done\n");
     int sizee= size_of_students(&l);
+    printf("size of node is :%d\n",sizeof(Listnode));
     printf("size of data structure is :%d\n",sizeof(Listnode)*sizee);
     while (1)
         {
@@ -165,7 +172,7 @@ void Linked_List(int n)
                 {
                 clock_t t;
                 create_student(&s);
-                printf("enter the position of the student where it ranges from [0 : %d]\n",size_of_students(&l));
+                printf("enter the position of the student which ranges from [0 : %d]\n",size_of_students(&l));
                 scanf("%d",&pos);
                 t = clock();
                 insert_list(pos,&s ,&l);
