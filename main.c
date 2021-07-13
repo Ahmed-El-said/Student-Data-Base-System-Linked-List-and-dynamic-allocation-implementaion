@@ -39,19 +39,20 @@ typedef struct list
 void create_student(Student *ps)
 {
     char str[50];
-    printf ("enter the name of student \n");
+    printf (" Name: ");
     fflush(stdin);
     fgets(str,50,stdin);
     strcpy(ps->Name,str);
-    printf ("enter the ID of student \n");
+    printf ("\n ID: ");
     scanf("%d",&(ps->ID) );
-    printf ("enter the Score of student \n");
+    printf ("\n Score: ");
     scanf("%d",&(ps->Score));
-    printf ("enter the Day of birth of student \n");
+    printf ("\n\n    Date of birth \n");
+    printf(" Day : ");
     scanf("%d",&(ps->dateof_birth.day));
-    printf ("enter the month of birth of student \n");
+    printf ("\n Month : ");
     scanf("%d",&(ps->dateof_birth.month));
-    printf ("enter the year of birth of student \n");
+    printf ("\n Year : ");
     scanf("%d",&(ps->dateof_birth.year));
 }
 
@@ -85,7 +86,7 @@ void insert_list(int pos , const Student *ps , List *pl )
             pl->head=pe;
           }
         }
-    else if(pos==size_of_students(&pl))
+    else if(pos=pl->size)
         {
         pl->tail->next=pe;
         pe->next=NULL;
@@ -116,12 +117,12 @@ int n;
 int main()
 {
     int choice;
-    printf("\t\t\t\t\t--------------WELCOME!--------------\nEnter number of students:");
+    printf("\t\t\t\t\t======================= Welcom! ===========================\nEnter number of students:");
     scanf("%d",&n);
 
     while(choice!=3)
         {
-        printf("\n1-Dynamic allocation\n2-Linked List\n3-terminate\nchoice:");
+        printf("\n1-Dynamic allocation\n2-Linked List\n3-terminate program\n\n choice: ");
         scanf("%d",&choice);
         switch (choice)
             {
@@ -151,20 +152,19 @@ void Linked_List(int n)
     create_list(&l);
     int pos;
     int num=n;
-
     for(int i=0;i<num;i++)
         {
         create_student(&s);
         insert_list(i,&s ,&l);
         }
-    printf("Insertion done\n");
+    printf("\nInsertion done\n");
     int sizee= size_of_students(&l);
-    printf("size of node is :%d\n",sizeof(Listnode));
-    printf("size of data structure is :%d\n",sizeof(Listnode)*sizee);
+    printf("\n         size of node is :%d\n",sizeof(Listnode));
+    printf("\n         size of data structure is :%d\n",sizeof(Listnode)*sizee);
     while (1)
         {
-        printf ("%s\n","1-insert new student");
-        printf ("%s\n","2-terminate");
+        printf ("\n1-insert new student");
+        printf ("\n2-terminate Linked list");
         scanf("%d",&switch_var);
         switch (switch_var)
             {
@@ -173,10 +173,11 @@ void Linked_List(int n)
                 clock_t t;
                 create_student(&s);
                 printf("enter the position of the student which ranges from [0 : %d]\n",size_of_students(&l));
+                printf(" where 0 is at Beginning and %d is at the end",size_of_students(&l));
                 scanf("%d",&pos);
                 t = clock();
                 insert_list(pos,&s ,&l);
-                printf("insert done\n");
+                printf("   Insertion Done!\n");
                 t = clock() - t;
                 double time_taken = ((double)t)/CLOCKS_PER_SEC;
                 printf("inserting took %f seconds to execute \n", time_taken);
@@ -201,19 +202,20 @@ void dynamic_alloc(int n)
      students=(struct student*)(malloc(n*sizeof(struct student)));
      for(int i=0;i<n;i++)//Getting the data of students
         {
-         printf("Enter name of student %d:",i+1);
+         printf("\n Name %d: ",i+1);
          fflush(stdin);
          fgets((students + i)->Name,50,stdin);
-         printf("Enter ID of student %d:",i+1);
+         printf("\n ID %d:",i+1);
          scanf("%d",&(students + i)->ID) ;
-         printf("Enter day of birth of student %d:",i+1);
-         scanf("%d",&(students + i)->dateof_birth.day) ;
-         printf("Enter month of birth of student %d:",i+1);
-         scanf("%d",&(students + i)->dateof_birth.month) ;
-         printf("Enter year of birth of student %d:",i+1);
-         scanf("%d",&(students + i)->dateof_birth.year) ;
-         printf("Enter score of student %d:",i+1);
+         printf("\n Score %d:",i+1);
          scanf("%d",&(students + i)->Score);
+         printf ("\n\n    Date of birth \n");
+         printf(" Day %d:",i+1);
+         scanf("%d",&(students + i)->dateof_birth.day) ;
+         printf("\n Month %d:",i+1);
+         scanf("%d",&(students + i)->dateof_birth.month) ;
+         printf("\n Year %d:",i+1);
+         scanf("%d",&(students + i)->dateof_birth.year) ;
         }
     printf("\nTotal Size of this Data Structure is %d", n*sizeof(students)); //calculating size taken by structure
     clock_t t; //Identifying a variable to store time elapsed in it
@@ -231,19 +233,20 @@ void dynamic_alloc(int n)
                  temp_student=(struct student*)(malloc(sizeof(struct student))); //its an empty slot to store the data of new student
                  n++;
                  //getting the data of the new student & storing it in the empty slot
-                 printf("Enter name of student:");
+                 printf("\n Name: ");
                  fflush(stdin);
                  fgets((temp_student)->Name,50,stdin);
-                 printf("Enter ID of student:");
+                 printf("\n ID: ");
                  scanf("%d",&(temp_student)->ID) ;
-                 printf("Enter day of birth of student:");
-                 scanf("%d",&(temp_student)->dateof_birth.day) ;
-                 printf("Enter month of birth of student:");
-                 scanf("%d",&(temp_student)->dateof_birth.month) ;
-                 printf("Enter year of birth of student:");
-                 scanf("%d",&(temp_student)->dateof_birth.year) ;
-                 printf("Enter score of student:");
+                 printf(" Score: ");
                  scanf("%d",&(temp_student)->Score);
+                 printf ("\n\n    Date of birth \n");
+                 printf(" Day : ");
+                 scanf("%d",&(temp_student)->dateof_birth.day) ;
+                 printf("\n Month: ");
+                 scanf("%d",&(temp_student)->dateof_birth.month) ;
+                 printf("\n Year: ");
+                 scanf("%d",&(temp_student)->dateof_birth.year) ;
                  int i;
                  t=clock(); //start the timer to count elapsed period
                  for (i = n-1; i >0; i--) //start to move data by 1 place to empty room for the new data
@@ -265,7 +268,7 @@ void dynamic_alloc(int n)
                 (students + i)->dateof_birth.year=(temp_student)->dateof_birth.year;
                  t=clock()-t; //calculating elapsed time by subtracting the start from the end
                  double Time_taken=((double)t)/CLOCKS_PER_SEC; //turning calculated time into seconds and storing it in a float variable
-                 printf("Time taken: %f\n\n",Time_taken); //print time
+                 printf("\n         Time taken: %f\n\n",Time_taken); //print time
                  break;
                 }
             //the same is repeated here but for middle insertion
@@ -273,26 +276,27 @@ void dynamic_alloc(int n)
                 {
                 struct student *temp_student;
                 int index;
-                printf("Enter Index you want to insert at :");
+                printf("Enter Index you want to insert at:");
                 scanf("%d",&index);
                 students=(struct student*)realloc(students, (n + 1) * sizeof(struct student));
                 temp_student=(struct student*)(malloc(sizeof(struct student)));
                 n++;
                 if(index<n)
                 {
-                    printf("Enter name of student:");
+                    printf("\n Name: ");
                     fflush(stdin);
                     fgets((temp_student)->Name,50,stdin);
-                    printf("Enter ID of student:");
+                    printf("\n ID: ");
                     scanf("%d",&(temp_student)->ID) ;
-                    printf("Enter day of birth of student:");
-                    scanf("%d",&(temp_student)->dateof_birth.day) ;
-                    printf("Enter month of birth of student:");
-                    scanf("%d",&(temp_student)->dateof_birth.month) ;
-                    printf("Enter year of birth of student:");
-                    scanf("%d",&(temp_student)->dateof_birth.year) ;
-                    printf("Enter score of student:");
+                    printf("\n Score: ");
                     scanf("%d",&(temp_student)->Score);
+                    printf ("\n\n    Date of birth \n");
+                    printf(" Day: ");
+                    scanf("%d",&(temp_student)->dateof_birth.day) ;
+                    printf("\n Month: ");
+                    scanf("%d",&(temp_student)->dateof_birth.month) ;
+                    printf("\n Year: ");
+                    scanf("%d",&(temp_student)->dateof_birth.year) ;
                     int i;
                     t=clock();
                     for (i = n-1; i >index ; i--)
@@ -312,11 +316,11 @@ void dynamic_alloc(int n)
                     (students + i)->dateof_birth.year=(temp_student)->dateof_birth.year;
                      t=clock()-t;
                      double Time_taken=((double)t)/CLOCKS_PER_SEC;
-                     printf("Time taken: %f\n\n",Time_taken);
+                     printf("\n         Time taken: %f\n\n",Time_taken);
                 }
                 else
                     {
-                        printf("Invalid index");
+                        printf("Invalid index!");
                         exit(-1);
                     }
                 break;
@@ -328,19 +332,20 @@ void dynamic_alloc(int n)
                 students=(struct student*)realloc(students, (n + 1) * sizeof(struct student));
                 temp_student=(struct student*)(malloc(sizeof(struct student)));
                 n++;
-                printf("Enter name of student:");
+                printf("\n Name: ");
                 fflush(stdin);
                 fgets((temp_student)->Name,50,stdin);
-                printf("Enter ID of student:");
+                printf("\n ID: ");
                 scanf("%d",&(temp_student)->ID) ;
-                printf("Enter day of birth of student:");
-                scanf("%d",&(temp_student)->dateof_birth.day) ;
-                printf("Enter month of birth of student:");
-                scanf("%d",&(temp_student)->dateof_birth.month) ;
-                printf("Enter year of birth of student:");
-                scanf("%d",&(temp_student)->dateof_birth.year) ;
-                printf("Enter score of student:");
+                printf("\n Score: ");
                 scanf("%d",&(temp_student)->Score);
+                printf ("\n\n    Date of birth \n");
+                printf(" Day: ");
+                scanf("%d",&(temp_student)->dateof_birth.day) ;
+                printf("\n Month: ");
+                scanf("%d",&(temp_student)->dateof_birth.month) ;
+                printf("\n Year: ");
+                scanf("%d",&(temp_student)->dateof_birth.year) ;
                 int i=n-1;
                 t=clock();
                 strcpy((students + i)->Name,(temp_student)->Name);
